@@ -1,0 +1,77 @@
+1. Join Collections ($lookup)
+# Join orders with users to Get Order Details with User Information
+
+db.Orders.aggregate([
+  {
+    $lookup: {
+      from: "Users",
+      localField: "u_id",  // This should match Orders field
+      foreignField: "user_id",  // This should match Users field
+      as: "user"
+    }
+  },
+  { $unwind: "$user" },
+  {
+    $project: {
+      _id: 0,
+      o_id: 1,
+      "user.name": 1,
+      "user.city": 1,
+      qty: 1,
+      status: 1
+    }
+  }
+])
+
+
+2. Group By ($group)
+#Get Total Orders Per User
+db.Orders.aggregate([
+    {
+        $group: {
+            _id: "$u_id", // Group by u_id (assuming this is the correct field in Orders)
+            totalOrders: { $sum: 1 } // Count total orders per user
+        }
+    }
+])
+
+3. Sorting ($sort)
+# Sort Orders by Quantity in Descending Order
+db.Orders.aggregate([
+    { $sort: { qty: -1 } } // Sort orders by qty in descending order
+])
+
+4. Combining Aggregation Operators
+# Total Revenue from Each Product
+db.Orders.aggregate([
+    {
+        $lookup: {
+            from: "Products",
+            localField: "p_id",  // Correct field name in Orders
+            foreignField: "p_id", // Correct field name in Products
+            as: "product_details"
+        }
+    },
+    { $unwind: "$product_details" },
+    {
+        $group: {
+            _id: "$p_id",
+            totalRevenue: { $sum: { $multiply: ["$qty", "$product_details.price"] } }
+        }
+    },
+    { $sort: { totalRevenue: -1 } } // Sort by highest revenue
+])
+
+5. Filter & Aggregation ($match + $group)
+# Total Sales for Only Delivered Orders
+db.Orders.aggregate([
+    { $match: { status: "Delivered" } },  // Filter only delivered orders
+    {
+        $group: {
+            _id: null,
+            totalSales: { $sum: "$qty" }  // Use "qty" instead of "quantity"
+        }
+    }
+])
+
+

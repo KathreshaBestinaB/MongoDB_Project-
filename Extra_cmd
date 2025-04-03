@@ -1,5 +1,5 @@
 # Find with projection (show only name and age, exclude _id)
-db.Users.find({}, { name: 1, age: 1, u_id: 0 })
+db.Users.find({}, { name: 1, city: 1, _id: 0 })
 
 # Update multiple documents (increase age by 1 for all users)
 db.Users.updateMany({}, { $inc: { age: 1 } })

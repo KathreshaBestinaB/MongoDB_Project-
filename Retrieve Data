@@ -1,0 +1,6 @@
+mydatabase> db.Orders.find({u_id:1});
+mydatabase> db.Payments.find({o_id:101});
+
+mydatabase> db.Orders.updateOne({ o_id: 102 }, { $set: { status: "Delivered" } })
+
+mydatabase> db.Products.updateOne({ p_id: 1 }, { $inc: { stock: -1 } })

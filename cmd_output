@@ -1,0 +1,943 @@
+mongosh
+mydatabase> db.Users.insertMany([{user_id:1, name:"kathresha", city:"Chennai"},
+                                {user_id:2, name:"Alice", city:"Mew York"},
+                                {user_id:3, name:"Roy", city:"Los Angeles"}, 
+                                {user_id:4, name:"Lily", city:"Charllote"},
+                                {user_id:5, name:"Bob", city:"San Francisco"}]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67ee07dcc38b6df2be6b140b'),
+    '1': ObjectId('67ee07dcc38b6df2be6b140c'),
+    '2': ObjectId('67ee07dcc38b6df2be6b140d'),
+    '3': ObjectId('67ee07dcc38b6df2be6b140e'),
+    '4': ObjectId('67ee07dcc38b6df2be6b140f')
+  }
+}
+
+mydatabase> db.Users.find();
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140b'),
+    user_id: 1,
+    name: 'kathresha',
+    city: 'Chennai'
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York'
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140d'),
+    user_id: 3,
+    name: 'Roy',
+    city: 'Los Angeles'
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140e'),
+    user_id: 4,
+    name: 'Lily',
+    city: 'Charllote'
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    user_id: 5,
+    name: 'Bob',
+    city: 'San Francisco'
+  }
+]
+
+mydatabase> db.createCollection("Products");
+{ ok: 1 }
+mydatabase> db.Products.insertMany([{ "p_id": 1, "name": "Laptop", "price": 75000, "category": "Electronics", "stock": 10 },
+                                    { "p_id": 2, "name": "Smartphone", "price": 30000, "category": "Electronics", "stock": 25 },
+                                    { "p_id": 3, "name": "Office Chair", "price": 5000, "category": "Furniture", "stock": 15 },
+                                    { "p_id": 4, "name": "Running Shoes", "price": 3500, "category": "Footwear", "stock": 30 },
+                                    { "p_id": 5, "name": "Bluetooth Speaker", "price": 4000, "category": "Electronics", "stock": 20 }
+... ]);
+...
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67ee10a5c38b6df2be6b1410'),
+    '1': ObjectId('67ee10a5c38b6df2be6b1411'),
+    '2': ObjectId('67ee10a5c38b6df2be6b1412'),
+    '3': ObjectId('67ee10a5c38b6df2be6b1413'),
+    '4': ObjectId('67ee10a5c38b6df2be6b1414')
+  }
+}
+
+mydatabase> db.Products.find();
+[
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1410'),
+    p_id: 1,
+    name: 'Laptop',
+    price: 75000,
+    category: 'Electronics',
+    stock: 10
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1411'),
+    p_id: 2,
+    name: 'Smartphone',
+    price: 30000,
+    category: 'Electronics',
+    stock: 25
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1412'),
+    p_id: 3,
+    name: 'Office Chair',
+    price: 5000,
+    category: 'Furniture',
+    stock: 15
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1413'),
+    p_id: 4,
+    name: 'Running Shoes',
+    price: 3500,
+    category: 'Footwear',
+    stock: 30
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1414'),
+    p_id: 5,
+    name: 'Bluetooth Speaker',
+    price: 4000,
+    category: 'Electronics',
+    stock: 20
+  }
+]
+mydatabase> db.createCollection("Orders");
+{ ok: 1 }
+mydatabase> db.Orders.insertMany([{ "o_id": 101, "u_id": 1, "p_id": 2, "qty": 1, "status": "Shipped" },
+                                  { "o_id": 102, "u_id": 3, "p_id": 4, "qty": 2, "status": "Pending" },
+                                  { "o_id": 103, "u_id": 2, "p_id": 1, "qty": 1, "status": "Delivered" },
+                                  { "o_id": 104, "u_id": 5, "p_id": 3, "qty": 4, "status": "Processing" },
+                                  { "o_id": 105, "u_id": 4, "p_id": 5, "qty": 1, "status": "Cancelled" }]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67ee12d8c38b6df2be6b1415'),
+    '1': ObjectId('67ee12d8c38b6df2be6b1416'),
+    '2': ObjectId('67ee12d8c38b6df2be6b1417'),
+    '3': ObjectId('67ee12d8c38b6df2be6b1418'),
+    '4': ObjectId('67ee12d8c38b6df2be6b1419')
+  }
+}
+
+mydatabase> db.createCollection("Payments");
+{ ok: 1 }
+mydatabase> db.Payments.insertMany([{ "pay_id": 201, "o_id": 101, "amount": 250.00, "status": "Completed", "method": "Credit Card" },
+                                    { "pay_id": 202, "o_id": 102, "amount": 500.00, "status": "Pending", "method": "PayPal" },
+                                    { "pay_id": 203, "o_id": 103, "amount": 150.00, "status": "Completed", "method": "Debit Card" },
+                                    { "pay_id": 204, "o_id": 104, "amount": 400.00, "status": "Failed", "method": "Bank Transfer" },
+                                    { "pay_id": 205, "o_id": 105, "amount": 300.00, "status": "Refunded", "method": "UPI" }]);
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67ee1332c38b6df2be6b141a'),
+    '1': ObjectId('67ee1332c38b6df2be6b141b'),
+    '2': ObjectId('67ee1332c38b6df2be6b141c'),
+    '3': ObjectId('67ee1332c38b6df2be6b141d'),
+    '4': ObjectId('67ee1332c38b6df2be6b141e')
+  }
+}
+mydatabase> db.Payments.find();
+[
+  {
+    _id: ObjectId('67ee1332c38b6df2be6b141a'),
+    pay_id: 201,
+    o_id: 101,
+    amount: 250,
+    status: 'Completed',
+    method: 'Credit Card'
+  },
+  {
+    _id: ObjectId('67ee1332c38b6df2be6b141b'),
+    pay_id: 202,
+    o_id: 102,
+    amount: 500,
+    status: 'Pending',
+    method: 'PayPal'
+  },
+  {
+    _id: ObjectId('67ee1332c38b6df2be6b141c'),
+    pay_id: 203,
+    o_id: 103,
+    amount: 150,
+    status: 'Completed',
+    method: 'Debit Card'
+  },
+  {
+    _id: ObjectId('67ee1332c38b6df2be6b141d'),
+    pay_id: 204,
+    o_id: 104,
+    amount: 400,
+    status: 'Failed',
+    method: 'Bank Transfer'
+  },
+  {
+    _id: ObjectId('67ee1332c38b6df2be6b141e'),
+    pay_id: 205,
+    o_id: 105,
+    amount: 300,
+    status: 'Refunded',
+    method: 'UPI'
+  }
+]
+
+mydatabase> db.Orders.find();
+[
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1415'),
+    o_id: 101,
+    u_id: 1,
+    p_id: 2,
+    qty: 1,
+    status: 'Shipped'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1416'),
+    o_id: 102,
+    u_id: 3,
+    p_id: 4,
+    qty: 2,
+    status: 'Pending'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1417'),
+    o_id: 103,
+    u_id: 2,
+    p_id: 1,
+    qty: 1,
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1418'),
+    o_id: 104,
+    u_id: 5,
+    p_id: 3,
+    qty: 4,
+    status: 'Processing'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1419'),
+    o_id: 105,
+    u_id: 4,
+    p_id: 5,
+    qty: 1,
+    status: 'Cancelled'
+  }
+]
+
+mydatabase> db.Orders.find({u_id:1});
+[
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1415'),
+    o_id: 101,
+    u_id: 1,
+    p_id: 2,
+    qty: 1,
+    status: 'Shipped'
+  }
+]
+
+mydatabase> db.Payments.find({o_id:101});
+[
+  {
+    _id: ObjectId('67ee1332c38b6df2be6b141a'),
+    pay_id: 201,
+    o_id: 101,
+    amount: 250,
+    status: 'Completed',
+    method: 'Credit Card'
+  }
+]
+mydatabase> db.Orders.updateOne({ _id: 102 }, { $set: { status: "Delivered" } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mydatabase> db.Orders.find();
+[
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1415'),
+    o_id: 101,
+    u_id: 1,
+    p_id: 2,
+    qty: 1,
+    status: 'Shipped'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1416'),
+    o_id: 102,
+    u_id: 3,
+    p_id: 4,
+    qty: 2,
+    status: 'Pending'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1417'),
+    o_id: 103,
+    u_id: 2,
+    p_id: 1,
+    qty: 1,
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1418'),
+    o_id: 104,
+    u_id: 5,
+    p_id: 3,
+    qty: 4,
+    status: 'Processing'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1419'),
+    o_id: 105,
+    u_id: 4,
+    p_id: 5,
+    qty: 1,
+    status: 'Cancelled'
+  }
+]
+mydatabase> db.Orders.updateOne({ o_id: 102 }, { $set: { status: "Delivered" } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Orders.find();
+[
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1415'),
+    o_id: 101,
+    u_id: 1,
+    p_id: 2,
+    qty: 1,
+    status: 'Shipped'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1416'),
+    o_id: 102,
+    u_id: 3,
+    p_id: 4,
+    qty: 2,
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1417'),
+    o_id: 103,
+    u_id: 2,
+    p_id: 1,
+    qty: 1,
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1418'),
+    o_id: 104,
+    u_id: 5,
+    p_id: 3,
+    qty: 4,
+    status: 'Processing'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1419'),
+    o_id: 105,
+    u_id: 4,
+    p_id: 5,
+    qty: 1,
+    status: 'Cancelled'
+  }
+]
+
+mydatabase> db.Products.updateOne({ p_id: 1 }, { $inc: { stock: -1 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Products.find();
+[
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1410'),
+    p_id: 1,
+    name: 'Laptop',
+    price: 75000,
+    category: 'Electronics',
+    stock: 9
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1411'),
+    p_id: 2,
+    name: 'Smartphone',
+    price: 30000,
+    category: 'Electronics',
+    stock: 25
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1412'),
+    p_id: 3,
+    name: 'Office Chair',
+    price: 5000,
+    category: 'Furniture',
+    stock: 15
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1413'),
+    p_id: 4,
+    name: 'Running Shoes',
+    price: 3500,
+    category: 'Footwear',
+    stock: 30
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1414'),
+    p_id: 5,
+    name: 'Bluetooth Speaker',
+    price: 4000,
+    category: 'Electronics',
+    stock: 20
+  }
+]
+mydatabase> db.Products.updateOne({ p_id: 1 }, { $inc: { stock: +1 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Products.find({p_id:1});
+[
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1410'),
+    p_id: 1,
+    name: 'Laptop',
+    price: 75000,
+    category: 'Electronics',
+    stock: 10
+  }
+]
+
+mydatabase> db.Orders.find({ status: "Cancelled" })
+[
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1419'),
+    o_id: 105,
+    u_id: 4,
+    p_id: 5,
+    qty: 1,
+    status: 'Cancelled'
+  }
+]
+mydatabase> db.Orders.find({ status: "Processing" })
+[
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1418'),
+    o_id: 104,
+    u_id: 5,
+    p_id: 3,
+    qty: 4,
+    status: 'Processing'
+  }
+]
+mydatabase> db.Orders.find({ status: "Delivered" })
+[
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1416'),
+    o_id: 102,
+    u_id: 3,
+    p_id: 4,
+    qty: 2,
+    status: 'Delivered'
+  },
+  {
+    _id: ObjectId('67ee12d8c38b6df2be6b1417'),
+    o_id: 103,
+    u_id: 2,
+    p_id: 1,
+    qty: 1,
+    status: 'Delivered'
+  }
+]
+mydatabase> db.Products.find({ price: { $gt: 600 } })
+[
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1410'),
+    p_id: 1,
+    name: 'Laptop',
+    price: 75000,
+    category: 'Electronics',
+    stock: 10
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1411'),
+    p_id: 2,
+    name: 'Smartphone',
+    price: 30000,
+    category: 'Electronics',
+    stock: 25
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1412'),
+    p_id: 3,
+    name: 'Office Chair',
+    price: 5000,
+    category: 'Furniture',
+    stock: 15
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1413'),
+    p_id: 4,
+    name: 'Running Shoes',
+    price: 3500,
+    category: 'Footwear',
+    stock: 30
+  },
+  {
+    _id: ObjectId('67ee10a5c38b6df2be6b1414'),
+    p_id: 5,
+    name: 'Bluetooth Speaker',
+    price: 4000,
+    category: 'Electronics',
+    stock: 20
+  }
+]
+
+mydatabase> db.Users.find({ name: /^A/ })
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York'
+  }
+]
+mydatabase> db.Users.find({}, { name: 1, age: 1, u_id: 0 })
+MongoServerError[Location31254]: Cannot do exclusion on field u_id in inclusion projection
+mydatabase> db.Users.find({}, { name: 1, age: 1, u_id: 1 })
+[
+  { _id: ObjectId('67ee07dcc38b6df2be6b140b'), name: 'kathresha' },
+  { _id: ObjectId('67ee07dcc38b6df2be6b140c'), name: 'Alice' },
+  { _id: ObjectId('67ee07dcc38b6df2be6b140d'), name: 'Roy' },
+  { _id: ObjectId('67ee07dcc38b6df2be6b140e'), name: 'Lily' },
+  { _id: ObjectId('67ee07dcc38b6df2be6b140f'), name: 'Bob' }
+]
+mydatabase> db.Users.find({}, { name: 1, age: 1, _id: 0 })
+[
+  { name: 'kathresha' },
+  { name: 'Alice' },
+  { name: 'Roy' },
+  { name: 'Lily' },
+  { name: 'Bob' }
+]
+mydatabase> db.Users.find({}, { name: 1, city: 1, _id: 0 })
+[
+  { name: 'kathresha', city: 'Chennai' },
+  { name: 'Alice', city: 'Mew York' },
+  { name: 'Roy', city: 'Los Angeles' },
+  { name: 'Lily', city: 'Charllote' },
+  { name: 'Bob', city: 'San Francisco' }
+]
+mydatabase> db.Users.updateOne({ u_id: 2 }, { $set: { age: 25 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mydatabase> db.Users.updateOne({ u_id: 1 }, { $set: { age: 20 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mydatabase> db.Users.updateOne({ u_id: 3 }, { $set: { age: 30} })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mydatabase> db.Users.updateOne({ u_id: 4 }, { $set: { age: 33} })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mydatabase> db.Users.updateOne({ u_id: 5 }, { $set: { age: 15} })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 0,
+  modifiedCount: 0,
+  upsertedCount: 0
+}
+mydatabase> db.Users.find();
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140b'),
+    user_id: 1,
+    name: 'kathresha',
+    city: 'Chennai'
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York'
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140d'),
+    user_id: 3,
+    name: 'Roy',
+    city: 'Los Angeles'
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140e'),
+    user_id: 4,
+    name: 'Lily',
+    city: 'Charllote'
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    user_id: 5,
+    name: 'Bob',
+    city: 'San Francisco'
+  }
+]
+mydatabase> db.Users.updateOne({ user_id: 2 }, { $set: { age: 25 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Users.updateOne({ user_id: 1 }, { $set: { age: 20 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Users.updateOne({ user_id: 3 }, { $set: { age: 30} })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Users.updateOne({ user_id: 4 }, { $set: { age: 33} })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Users.updateOne({ user_id: 5 }, { $set: { age: 15} })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Users.find():
+Uncaught:
+SyntaxError: Missing semicolon. (1:15)
+
+> 1 | db.Users.find():
+    |                ^
+  2 |
+
+mydatabase> db.Users.find();
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140b'),
+    user_id: 1,
+    name: 'kathresha',
+    city: 'Chennai',
+    age: 20
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York',
+    age: 25
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140d'),
+    user_id: 3,
+    name: 'Roy',
+    city: 'Los Angeles',
+    age: 30
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140e'),
+    user_id: 4,
+    name: 'Lily',
+    city: 'Charllote',
+    age: 33
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    user_id: 5,
+    name: 'Bob',
+    city: 'San Francisco',
+    age: 15
+  }
+]
+mydatabase> db.Users.updateMany({}, { $inc: { age: 1 } })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
+mydatabase> db.Users.find();
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140b'),
+    user_id: 1,
+    name: 'kathresha',
+    city: 'Chennai',
+    age: 21
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York',
+    age: 26
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140d'),
+    user_id: 3,
+    name: 'Roy',
+    city: 'Los Angeles',
+    age: 31
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140e'),
+    user_id: 4,
+    name: 'Lily',
+    city: 'Charllote',
+    age: 34
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    user_id: 5,
+    name: 'Bob',
+    city: 'San Francisco',
+    age: 16
+  }
+]
+mydatabase> db.Users.replaceOne({ name: "Bob" }, { name: "Bob", age: 30, city: "Berlin" })
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+mydatabase> db.Users.find();
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140b'),
+    user_id: 1,
+    name: 'kathresha',
+    city: 'Chennai',
+    age: 21
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York',
+    age: 26
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140d'),
+    user_id: 3,
+    name: 'Roy',
+    city: 'Los Angeles',
+    age: 31
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140e'),
+    user_id: 4,
+    name: 'Lily',
+    city: 'Charllote',
+    age: 34
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    name: 'Bob',
+    age: 30,
+    city: 'Berlin'
+  }
+]
+mydatabase> db.Users.find({ age: { $gte: 25, $lte: 30 } })
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York',
+    age: 26
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    name: 'Bob',
+    age: 30,
+    city: 'Berlin'
+  }
+]
+mydatabase> db.Users.find({ name: { $in: ["Alice", "Bob"] } })
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York',
+    age: 26
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    name: 'Bob',
+    age: 30,
+    city: 'Berlin'
+  }
+]
+mydatabase> db.Users.find({ name: { $ne: "Alice" } })
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140b'),
+    user_id: 1,
+    name: 'kathresha',
+    city: 'Chennai',
+    age: 21
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140d'),
+    user_id: 3,
+    name: 'Roy',
+    city: 'Los Angeles',
+    age: 31
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140e'),
+    user_id: 4,
+    name: 'Lily',
+    city: 'Charllote',
+    age: 34
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    name: 'Bob',
+    age: 30,
+    city: 'Berlin'
+  }
+]
+mydatabase> db.Users.find({ city: { $exists: false } }
+...
+... ;
+Uncaught:
+SyntaxError: Unexpected token, expected "," (3:0)
+
+  1 | db.Users.find({ city: { $exists: false } }
+  2 |
+> 3 | ;
+    | ^
+  4 |
+
+mydatabase> db.Users.find({ city: { $exists: false } } ;
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:43)
+
+> 1 | db.Users.find({ city: { $exists: false } } ;
+    |                                            ^
+  2 |
+
+mydatabase> db.Users.find({ city: { $exists: false } })
+
+mydatabase> db.users.find({ city: { $regex: "on", $options: "i" } })
+
+mydatabase> db.users.find({ city: { $regex: "rk", $options: "i" } })
+
+mydatabase> Users.find({ city: { $regex: "rk", $options: "i" } })
+ReferenceError: Users is not defined
+mydatabase> db.Users.find();
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140b'),
+    user_id: 1,
+    name: 'kathresha',
+    city: 'Chennai',
+    age: 21
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York',
+    age: 26
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140d'),
+    user_id: 3,
+    name: 'Roy',
+    city: 'Los Angeles',
+    age: 31
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140e'),
+    user_id: 4,
+    name: 'Lily',
+    city: 'Charllote',
+    age: 34
+  },
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140f'),
+    name: 'Bob',
+    age: 30,
+    city: 'Berlin'
+  }
+]
+mydatabase> db.Users.find({ city: { $regex: "rk", $options: "i" } })
+[
+  {
+    _id: ObjectId('67ee07dcc38b6df2be6b140c'),
+    user_id: 2,
+    name: 'Alice',
+    city: 'Mew York',
+    age: 26
+  }
+]
+mydatabase> db.Users.find({ city: { $regex: "on", $options: "i" } })
+

@@ -1,6 +1,40 @@
+#Step 2: Retrieve Data
+
+#Find Orders Placed by "Alice" (Using User ID)
 mydatabase> db.Orders.find({u_id:1});
+
+#Find Payments for a Specific Order
 mydatabase> db.Payments.find({o_id:101});
 
+
+#Step 3: Update Data
+
+#Update Order Status to "Delivered"
 mydatabase> db.Orders.updateOne({ o_id: 102 }, { $set: { status: "Delivered" } })
 
+#Decrease Stock after Purchase
 mydatabase> db.Products.updateOne({ p_id: 1 }, { $inc: { stock: -1 } })
+
+#Mark Payment as Completed
+mydatabase> db.Payments.updateOne({ p_id: 201 }, { $set: { status: "Paid" } })
+
+
+#Step 4: Delete Data
+
+#Remove a User (If Needed)
+db.Users.deleteOne({u _id: 2 })
+
+#Delete an Order (If Canceled)
+db.Orders.deleteOne({ o_id: 101 })
+
+
+#Step 5: Search & Filtering
+
+#Find Orders Where Status is "Pending"
+mydatabase> db.Orders.find({ status: "Delivered" })
+
+#Find Products with Price Greater than 600
+db.Products.find({ price: { $gt: 600 } })
+
+#Find Users Whose Name Starts with "A"
+db.Users.find({ name: /^A/ })
